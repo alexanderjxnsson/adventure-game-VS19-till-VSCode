@@ -11,11 +11,11 @@
 #include <stdlib.h>
 using namespace std;
 //Struct
-/*struct player{
+struct player{
     int playerHP = 100;
     int maxHP = playerHP;
     string name;
-}user;*/
+}user;
 //variables
 string name;
 string choice;
@@ -240,8 +240,8 @@ int main() {
     /*
     * INIT START
     */
-    cout << "Enter your name: \n";  cin >> name;
-    cout << "Hello and welcome " << name << ", let the game begin!\n";
+    cout << "Enter your name: \n";  cin >> user.name;
+    cout << "Hello and welcome " << user.name << ", let the game begin!\n";
     /*
     * INIT END
     */
