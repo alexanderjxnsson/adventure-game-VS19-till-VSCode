@@ -216,12 +216,12 @@ void satansChoice() {
     case 0:
         cout << "\nSatan likes you, here have some extra armor.\n";
         cout << "Also the game is over, bye :)\n";
-        maxHP + 25;
+        user.maxHP + 25;
         explore = false;
         break;
     case 1:
         cout << "\nSatan does not like you, -25 in HP!\n";
-        playerHP - 25;
+        user.playerHP - 25;
         cout << "Also the game is over, bye :)\n";
         explore = false;
         break;
@@ -250,7 +250,7 @@ int main() {
     while (game == true) {
         cout << "\nWhat do you want to do?\n";
         cout << "Enter 'fight', 'explore','rest' or 'exit': \n";
-        cout << "Current energy: " << userEnergy << "\nCurrent HP: " << playerHP << "/" << maxHP << "\n";
+        cout << "Current energy: " << user.energy << "\nCurrent HP: " << user.playerHP << "/" << user.maxHP << "\n";
         cin >> choice;
         //EXPLORE
         //if choice is explore, we set explore to true and run that loop
@@ -263,7 +263,7 @@ int main() {
                     forestMenu();
                     //forest -> cabin
                     if (choice == "cabin") {
-                        cabinMenu(playerHP);
+                        cabinMenu(user.playerHP);
                         //forest -> cabin -> dungeon
                         if (choice == "dungeon") {
                             cout << "\nYou are now in the dungeon!\nOptions from here are 'chest' or 'hell':\n";
@@ -283,8 +283,8 @@ int main() {
                             }
                             //forest -> dungeon -> chest
                             else if (choice == "chest") {
-                                playerHP += 20;
-                                chestMenu(maxHP);
+                                user.playerHP += 20;
+                                chestMenu(user.maxHP);
                                 //forest -> dungeon -> chest -> hell
                                 if (choice == "yes") {
                                     hellMenu();
@@ -308,7 +308,7 @@ int main() {
                             lakeMenu();
                             //forest -> cabin -> lake -> dive
                             if (choice == "dive") {
-                                diveMenu(maxHP);
+                                diveMenu(user.maxHP);
                             }//forest -> cabin -> lake -> exit
                             else if (choice == "exit") {
                                 exit();
@@ -322,7 +322,7 @@ int main() {
                         lakeMenu();
                         //forest -> lake -> dive
                         if (choice == "dive") {
-                            diveMenu(maxHP);
+                            diveMenu(user.maxHP);
                         }//forest -> lake -> exit
                         else if (choice == "exit") {
                             exit();
@@ -335,7 +335,7 @@ int main() {
                         cin >> choice;
                         //forest -> dungeon -> chest
                         if (choice == "chest") {
-                            chestMenu(maxHP);
+                            chestMenu(user.maxHP);
                             //forest -> dungeon -> chest -> hell
                             if (choice == "yes") {
                                 hellMenu();
@@ -372,7 +372,7 @@ int main() {
                     dungeonMenu();
                     //dungeon -> chest
                     if (choice == "chest") {
-                        chestMenu(maxHP);
+                        chestMenu(user.maxHP);
                         //dungeon -> chest -> hell
                         if (choice == "yes") {
                             hellMenu();
@@ -408,12 +408,12 @@ int main() {
                         cin >> choice;
                         //dungeon -> forest -> cabin
                         if (choice == "cabin") {
-                            cabinMenu(playerHP);
+                            cabinMenu(user.playerHP);
                             //dungeon -> forest -> cabin -> lake
                             if (choice == "yes") {
                                 lakeMenu();
                                 if (choice == "dive") {
-                                    diveMenu(maxHP);
+                                    diveMenu(user.maxHP);
                                 }//dungeon -> forest -> cabin -> lake -> exit
                                 else if (choice == "exit") {
                                     exit();
@@ -429,7 +429,7 @@ int main() {
                             lakeMenu();
                             //dungeon -> forest -> lake -> dive
                             if (choice == "dive") {
-                                diveMenu(maxHP);
+                                diveMenu(user.maxHP);
                             }//dungeon -> forest -> lake -> exit
                             else if (choice == "exit") {
                                 exit();
@@ -492,16 +492,16 @@ int main() {
                             while (battle == true) {
                                 int monsterHit = 0;
                                 monsterHit = randMonsterHit(monsterHit);
-                                playerHP -= monsterHit;
+                                user.playerHP -= monsterHit;
                                 cout << "The " << monster << " makes " << monsterHit << " damage.\n";
                                 //if the player ides
-                                if (playerHP <= 0) {
+                                if (user.playerHP <= 0) {
                                     cout << "\nYOU DIED!\n";
                                     cout << "A new monster will be randomized!\n\n";
                                     battle = false;
                                 }//if the player is still alive
-                                else if (playerHP > 0) {
-                                    cout << "\nYou have " << playerHP << "HP left!\n";
+                                else if (user.playerHP > 0) {
+                                    cout << "\nYou have " << user.playerHP << "HP left!\n";
                                     userHitMenu();
                                     if (choice == "quick") {
                                         quickHitMenu();
@@ -535,10 +535,10 @@ int main() {
         //REST
         else if (choice == "rest") {
         cout << "\nYou are now taking a nap.\nzZz zZz!\nEnergy and HP restored.\n";
-        userEnergy = 100;
+        user.energy = 100;
         //if the user is below 100, we calculate what's missing and add the remaining
-        if (playerHP < maxHP) {
-            playerHP = maxHP;
+        if (user.playerHP < user.maxHP) {
+            user.playerHP = user.maxHP;
         }
     }
     //Exiting the game
