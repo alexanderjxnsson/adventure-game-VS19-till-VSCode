@@ -14,19 +14,20 @@ using namespace std;
 struct player{
     int playerHP = 100;
     int maxHP = playerHP;
+    int energy = 100;
     string name;
 }user;
 //variables
-string name;
+//string name;
 string choice;
 string monster;
 bool explore = false;
 bool fight = false;
 bool battle = false;
 bool game = true;
-int maxHP = 100;
-int playerHP = maxHP;
-int userEnergy = 100;
+//int maxHP = 100;
+//int playerHP = maxHP;
+//int userEnergy = 100;
 int monsterHP = 0;
 //functions for different randomizations
 int zeroToThree(int a) {
@@ -106,35 +107,35 @@ void dungeonMenu() {
 int chestMenu(int a) {
     cout << "\nYou found armor +20 to your HP\n";
     cout << "Do you want to continue to hell ? \nEnter 'yes' or 'exit'\n";
-    maxHP += 20;
+    user.maxHP += 20;
     cin >> choice;
-    return maxHP;
+    return user.maxHP;
 }
 int cabinMenu(int a) {
-    playerHP -= 10;
+    user.playerHP -= 10;
     cout << "\nYou can't just enter peoples cabins.\nThe owner hit you with a shovel.\nYou lose 10HP\n";
     cout << "Where do you want to go now??\nEnter 'dungeon' or 'lake'\n";
     cin >> choice;
-    return playerHP;
+    return user.playerHP;
 }
 int diveMenu(int a) {
-    maxHP += 15;
+    user.maxHP += 15;
     cout << "\nAt the bottom of the lake you found a rusty helmet, +15HP!\n";
     cout << "Also the game is over, bye :)\n\n";
     explore = false;
-    return maxHP;
+    return user.maxHP;
 }
 void exit() {
     cout << "\nYou chose to exit, bye!\n\n";
 }
 //battle functions
 void userHitMenu() {
-    cout << "\nEnter what type of hit you want to make\n'quick' - 15 energy, 'heavy' - 30 energy or 'escape'\nCurrent energy: " << userEnergy << "\n\n";
+    cout << "\nEnter what type of hit you want to make\n'quick' - 15 energy, 'heavy' - 30 energy or 'escape'\nCurrent energy: " << user.energy << "\n\n";
     cin >> choice;
 }
 void quickHitMenu() {
     int userHit = 0;
-    userEnergy -= 10;
+    user.energy -= 10;
     userHit = randUserHit(userHit);
     monsterHP -= userHit;
     cout << "\nYou make " << userHit << " damage!\n";
@@ -144,7 +145,7 @@ void quickHitMenu() {
         cout << "A new monster will be randomized!\n\n";
         battle = false;
     }
-    else if (userEnergy < 0 && monsterHP > 0) {
+    else if (user.energy < 0 && monsterHP > 0) {
         cout << "\nYou are out of energy, the fight is over.\nGo and rest!\n";
         battle = false;
     }
@@ -154,19 +155,19 @@ void quickHitMenu() {
         cout << "\nThe " << monster << " have " << monsterHP << "HP left!\n";
         cout << "Now it's the " << monster << "'s turn.\n";
         cout << "The " << monster << " makes " << monsterHit << " damage!\n";
-        if (playerHP <= 0) {
+        if (user.playerHP <= 0) {
             cout << "\nYOU DIED!\n";
             cout << "A new monster will be randomized!\n";
             battle = false;
         }
-        else if (playerHP > 0) {
-            cout << "You have " << (playerHP -= monsterHit) << "HP left!\n";
+        else if (user.playerHP > 0) {
+            cout << "You have " << (user.playerHP -= monsterHit) << "HP left!\n";
         }
     }
 }
 void heavyHitMenu() {
     int userHeavyHit = 0;
-    userEnergy -= 20;
+    user.energy -= 20;
     userHeavyHit = randUserHeavyHit(userHeavyHit);
     monsterHP -= userHeavyHit;
     cout << "\nYou make " << userHeavyHit << " damage!\n";
@@ -176,7 +177,7 @@ void heavyHitMenu() {
         cout << "A new monster will be randomized!\n\n";
         battle = false;
     }
-    else if (userEnergy < 0 && monsterHP > 0) {
+    else if (user.energy < 0 && monsterHP > 0) {
         cout << "\nYou are out of energy, the fight is over.\nGo and rest!\n";
         battle = false;
     }
@@ -186,14 +187,14 @@ void heavyHitMenu() {
         cout << "\nThe " << monster << " have " << monsterHP << "HP left!\n";
         cout << "Now it's the " << monster << "'s turn.\n";
         cout << "The " << monster << " makes " << monsterHit << " damage!\n";
-        playerHP -= monsterHit;
-        if (playerHP <= 0) {
+        user.playerHP -= monsterHit;
+        if (user.playerHP <= 0) {
             cout << "\nYOU DIED!\n";
             cout << "A new monster will be randomized!\n";
             battle = false;
         }
-        else if (playerHP > 0) {
-            cout << "You have " << (playerHP -= monsterHit) << "HP left!\n";
+        else if (user.playerHP > 0) {
+            cout << "You have " << (user.playerHP -= monsterHit) << "HP left!\n";
         }
     }
 }
